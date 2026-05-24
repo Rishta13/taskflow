@@ -32,6 +32,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const userId = (session.user as any).id
+  const { id } = await params;
   const project = await prisma.project.findUnique({ where: { id: id } })
 
   if (!project) return NextResponse.json({ error: 'Not found' }, { status: 404 })
